@@ -4,8 +4,14 @@ import { Button } from "@nextui-org/react";
 
 import 'bootstrap/dist/css/bootstrap.css'
 
-const Layout = ({ children }) => {
+import { useWeb3Modal } from "@web3modal/react";
+import { useAccount, useDisconnect } from "wagmi";
 
+const Layout = ({ children }) => {
+    const { isConnected } = useAccount();
+    const { disconnect } = useDisconnect();
+    const { open } = useWeb3Modal(); 
+  
   return (
     <div class="container">
         <Head>
@@ -41,7 +47,13 @@ const Layout = ({ children }) => {
             </div>
             
             <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
-                <li class="nav-item"><Button>Connect Wallet</Button></li>
+                {!isConnected && (
+                    <li class="nav-item"><Button onPress={() => open()}>Connect Wallet</Button></li>
+                )}
+                {isConnected && (
+                    Connected
+                )}
+                
             </ul>
         </nav>
         {children}
