@@ -18,12 +18,14 @@ const Layout = ({ children }) => {
     useEffect(() => {
         if (router.isReady && !isConnected) {
           // Redirect to homepage
-          router.push("/");
+          router.push("/", undefined, { scroll: false });
+          console.log("run reroute");
         }
-    }, [isConnected, router, router.isReady]);
+    }, [isConnected, router.isReady]);
+    //}, [isConnected, router, router.isReady]);
   
     return (
-        <div class="container">
+        <div className="container">
             <Head>
                 <title>LFG</title>
                 <meta name="description" content="Fractional shares of real estate in the Web3" />
@@ -41,6 +43,7 @@ const Layout = ({ children }) => {
                         <Link
                             href="/"
                             className="nav-link"
+                            scroll={false}
                         >
                             Home
                         </Link>

@@ -1,0 +1,23 @@
+.panel {
+    box-sizing: border-box;
+    height: 100vh;
+  /*   position: sticky; */ /* causes problems! */
+    /* top: 56; */
+}
+
+/* .panelWrapper {
+  height: 100vh;
+} */
+
+.panel0 {
+  background-color: green;
+}
+.panel1 {
+  background-color: yellow;
+}
+.panel2 {
+  background-color: red;
+}
+.panel3 {
+  background-color: blue;
+}
