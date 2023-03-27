@@ -34,9 +34,9 @@ export default function Home() {
     }
 
     function goToSection(i, anim) {
-        console.log("scroll to", window.innerHeight * i + firstElem.current.offsetTop)
+        // console.log("scroll to", window.innerHeight * i)
         gsap.to(window, {
-          scrollTo: {y: i*innerHeight + firstElem.current.offsetTop, autoKill: false},
+          scrollTo: {y: i*innerHeight, autoKill: false},
           duration: 1
         });
         
@@ -66,7 +66,13 @@ export default function Home() {
         <div className="min-h-screen bg-slate-50">
 
             <div className={styles.panelWrapper}>
-                <section ref={(el) => assignPanelRef(el, 0)} className={`${styles.panel} ${styles.panel0}`}>1</section>
+                <section ref={(el) => assignPanelRef(el, 0)} className={`${styles.panel} ${styles.panel0}`}>
+                  <img className={styles.heroImage} src="https://preview.free3d.com/img/2019/12/2206098452058735689/zot1yr97.jpg" alt=""/>
+                  <div className={styles.heroTitleWrapper}>
+                    <p>Buy Less.</p>
+                    <p><span className={styles.ownStyle}>Own</span> More.</p>
+                  </div>
+                </section>
                 <section ref={(el) => assignPanelRef(el, 1)} className={`${styles.panel} ${styles.panel1}`}>2</section>
                 <section ref={(el) => assignPanelRef(el, 2)} className={`${styles.panel} ${styles.panel2}`}>3</section>
                 <section ref={(el) => assignPanelRef(el, 3)} className={`${styles.panel} ${styles.panel3}`}>4</section>

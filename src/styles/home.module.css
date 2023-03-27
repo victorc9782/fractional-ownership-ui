@@ -1,6 +1,10 @@
+
+
 .panel {
     box-sizing: border-box;
     height: 100vh;
+    margin: 0 0;
+    width: 100%;
   /*   position: sticky; */ /* causes problems! */
     /* top: 56; */
 }
@@ -10,7 +14,11 @@
 } */
 
 .panel0 {
-  background-color: green;
+  /* background-image: url("https://preview.free3d.com/img/2019/12/2206098452058735689/zot1yr97.jpg"); */
+  /* background-color: green; */
+  background-size: cover;
+  position: relative;
+  height: calc(100vh - 56px);
 }
 .panel1 {
   background-color: yellow;
@@ -21,3 +29,25 @@
 .panel3 {
   background-color: blue;
 }
+.heroImage {
+  
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  opacity: 75%;
+}
+.heroTitleWrapper {
+  position: relative ;
+  font-size: 8em;
+  height: 50%;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
+  /* display: flex; */
+}
+
+.ownStyle {
+  color: blue;
+}
+
+
