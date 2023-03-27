@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
                 <meta name="description" content="Fractional shares of real estate in the Web3" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <nav className="navbar navbar-expand-lg navbar-light sticky-top ">
                 <a className="navbar-brand" href="#">LFG</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -92,7 +92,7 @@ const Layout = ({ children }) => {
             </nav>
             {children}
             
-            <footer class="container fixed-bottom">
+            <footer class="container fixed-bottom p-0">
                 <div>
                     <p>&copy; 2023 LFG. All rights reserved.</p>
                 </div>

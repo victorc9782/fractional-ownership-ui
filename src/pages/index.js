@@ -197,7 +197,7 @@ export default function Home() {
               <div className={styles.inner}>
                 <div className={`${styles.bg} ${styles.bg2}`}>
                   <h2 className={`${styles.sectionHeading} ${styles.h2}`}>
-                    Blockchain Technology
+                    More styling to come...
                   </h2>
                 </div>
               </div>
