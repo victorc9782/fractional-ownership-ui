@@ -1,7 +1,10 @@
+import _ from 'lodash';
+
 import Link from "next/link";
 import Head from 'next/head'
 import { Button } from "@nextui-org/react";
-import { useEffect } from "react";
+import { Dropdown } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -10,7 +13,7 @@ import { useWeb3Modal } from "@web3modal/react";
 import { useAccount, useDisconnect } from "wagmi";
 
 const Layout = ({ children }) => {
-    const { isConnected } = useAccount();
+    const { isConnected, address } = useAccount();
     const { disconnect } = useDisconnect();
     const { open } = useWeb3Modal(); 
 
@@ -23,6 +26,12 @@ const Layout = ({ children }) => {
         }
     }, [isConnected, router.isReady]);
     //}, [isConnected, router, router.isReady]);
+
+    const onMenuAction = (key)=> {
+        if(key == "disconnect"){
+            disconnect();
+        }
+    }
   
     return (
         <div className="container-fluid p-0 bg-white">
@@ -63,9 +72,20 @@ const Layout = ({ children }) => {
                 
                 <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
                     {!isConnected && (
-                        <li class="nav-item"><Button onPress={() => open()}>Connect Wallet</Button></li>
+                        <li class="nav-item">
+                            <button type="button" onClick={() => open()} class="btn btn-primary">Connect Wallet</button>
+                        </li>
                     ) || (
-                        <li class="nav-item"><Button bordered onPress={() => disconnect()}>Disconnect</Button></li>
+                        <li class="nav-item">
+                            <Dropdown>
+                                <Dropdown.Button flat>
+                                    {address}
+                                </Dropdown.Button>
+                                <Dropdown.Menu aria-label="Static Actions" onAction={onMenuAction}>
+                                    <Dropdown.Item key="disconnect" color="error">Disconnect</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </li>
                     )}
                     
                 </ul>
