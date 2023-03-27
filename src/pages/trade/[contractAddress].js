@@ -25,7 +25,8 @@ export default function Trade() {
     const [propertiesOwningShares, setPropertiesOwningShares] = useState(0);
     
     const [amountInput, setAmountInput] = useState(0);
-    const amountRef =  useRef(null);
+
+    const [isShowTransactionSuccessAlert, setIsShowTransactionSuccessAlert] = useState(false);
 
     const init = async () => {
         try {
@@ -62,6 +63,11 @@ export default function Trade() {
 
             const tx = await fractionalOwnershipContract.buyShares(amountInput, {value: amountInput*propertiesSharePrice});
             const response = await tx.wait();
+            setIsShowTransactionSuccessAlert(true);
+
+            setTimeout(() => {
+                setIsShowTransactionSuccessAlert(false)
+            }, 5000);
 
             console.log(response)
         } catch (err) {
@@ -81,7 +87,11 @@ export default function Trade() {
 
             const tx = await fractionalOwnershipContract.sellShares(amountInput);
             const response = await tx.wait();
+            setIsShowTransactionSuccessAlert(true);
 
+            setTimeout(() => {
+                setIsShowTransactionSuccessAlert(false)
+            }, 5000);
             console.log(response)
         } catch (err) {
             console.error(err);
@@ -117,6 +127,12 @@ export default function Trade() {
                 {isConnected && !isLoading && !isContractValid && <div>Invalid properties<br/></div>}
                 {isConnected && !isLoading && isContractValid && 
                 <div>
+                    {isShowTransactionSuccessAlert && 
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            Transaction Completed Successfully
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setIsShowTransactionSuccessAlert(false)}></button>
+                        </div>
+                    }
                     Name: {propertiesName} <br/>
                     Description: {propertiesDescription} <br/>
                     totalShares: {propertiesTotalShares} <br/>
