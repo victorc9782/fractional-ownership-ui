@@ -5,6 +5,7 @@ const ethers = require('ethers')
 
 import FRACTION_OWNERSHIP_ABI from "../../../contracts/FractionalOwnership.json";
 
+import 'bootstrap/dist/css/bootstrap.css'
 
 export default function Trade() {
     const { isConnected, address } = useAccount();
@@ -51,16 +52,20 @@ export default function Trade() {
 
     return (
         <>
-            <div className="container-fluid">
+            <div className="container text-center">
                 {isConnected && isLoading && <div>Loading...</div>}
-                {isConnected && !isLoading && isContractValid && <div>
+                {isConnected && !isLoading && !isContractValid && <div>Invalid properties<br/></div>}
+                {isConnected && !isLoading && isContractValid && 
+                <div>
                     Name: {propertiesName} <br/>
                     Description: {propertiesDescription} <br/>
                     totalShares: {propertiesTotalShares} <br/>
                     sharePrice: {propertiesSharePrice} <br/>
                     remainingShares: {propertiesRemainingShares} <br/>
-                </div>}
-                {isConnected && !isLoading && !isContractValid && <div>Invalid properties<br/>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-success">Buy</button>
+                        <button type="button" class="btn btn-outline-danger">Sell</button>
+                    </div>
                 </div>}
             </div>
         </>
