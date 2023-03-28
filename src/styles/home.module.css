@@ -1,33 +1,5 @@
 
 
-.panelWrapper {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
-  overflow-y: hidden;
-}
-
-.panel {
-    box-sizing: border-box;
-    height: 100vh;
-    margin: 0 0;
-    width: 100%;
-  /*   position: sticky; */ /* causes problems! */
-    /* top: 56; */
-}
-.panel0 {
-  background-size: cover;
-  position: relative;
-  height: calc(100vh - 56px);
-}
-.panel1 {
-  background-color: white;
-}
-.panel2 {
-  background-color: red;
-}
-.panel3 {
-  background-color: blue;
-}
 
 .heroImage {
   -ms-overflow-style: none;  /* IE and Edge */
@@ -64,6 +36,9 @@
   color: #fff;
   text-decoration: none;
 } */
+.sectionHeading {
+  opacity: 1;
+}
 
 .body {
   margin: 0;
@@ -80,7 +55,6 @@
   font-size: clamp(1rem, 5vw, 5rem);
   font-weight: 400;
   /* text-align: center; */
-  letter-spacing: 0.5em;
   margin-right: -0.5em;
   color: hsl(0, 0, 80%);
   width: 90vw;

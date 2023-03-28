@@ -1,8 +1,7 @@
 import { Inter } from 'next/font/google'
 import { useEffect, useRef, useState, useLayoutEffect, useContext } from "react";
 const ethers = require('ethers')
-import { useAccount } from "wagmi";
-import {RemoveScrollBar} from 'react-remove-scroll-bar';
+import { useAccount, ContractMethodNoResultError } from "wagmi";
 
 // gsap related imports
 import { gsap } from "gsap";
@@ -11,7 +10,9 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 import styles from '../styles/home.module.css'
 import { Observer } from "gsap/Observer";
+import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(Observer);
+gsap.registerPlugin(SplitText);
 
 
 export default function Home() {
@@ -71,68 +72,78 @@ export default function Home() {
 
 
     const app = useRef();
-    const storeFunction = useRef();
+    let sections = useRef();
+    let images = useRef();
+    let headings = useRef();
+    let outerWrappers = useRef();
+    let innerWrappers = useRef();
+    let splitHeadings = useRef();
+    let currentIndex = useRef();
+    let wrap = useRef();
 
+    // if this breaks, it has something to do with animation I think.
+    let animating = useRef();
+
+    function gotoSection(index, direction) {
+      index = wrap(index); // make sure it's valid
+      animating = true;
+      let fromTop = direction === -1,
+          dFactor = fromTop ? -1 : 1,
+          tl = gsap.timeline({
+            defaults: { duration: 1.25, ease: "power1.inOut" },
+            onComplete: () => animating = false
+          });
+      if (currentIndex >= 0) {
+        // The first time this function runs, current is -1
+        gsap.set(sections[currentIndex], { zIndex: 0 });
+        tl.to(images[currentIndex], { yPercent: -15 * dFactor })
+          .set(sections[currentIndex], { autoAlpha: 0 });
+      }
+      gsap.set(sections[index], { autoAlpha: 1, zIndex: 1 });
+      tl.fromTo([outerWrappers[index], innerWrappers[index]], { 
+          yPercent: i => i ? -100 * dFactor : 100 * dFactor
+        }, { 
+          yPercent: 0 
+        }, 0)
+        .fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0)
+        .fromTo(splitHeadings[index].chars, { 
+            autoAlpha: 0, 
+            yPercent: 150 * dFactor
+        }, {
+            autoAlpha: 1,
+            yPercent: 0,
+            duration: 1,
+            ease: "power2",
+            stagger: {
+              each: 0.02,
+              from: "random"
+            }
+          }, 0.2);
+      
+      currentIndex = index;
+    }
+    
     useLayoutEffect (() => {
       let ctx = gsap.context(() => {
-        let sections = document.querySelectorAll(`.${styles.section}`)
-        let images = document.querySelectorAll(`.${styles.bg}`)
-        let headings = gsap.utils.toArray(`.${styles.sectionHeading}`)
-        let outerWrappers = gsap.utils.toArray(`.${styles.outer}`)
-        let innerWrappers = gsap.utils.toArray(`.${styles.inner}`)
-        let firstLoad = true;
+        sections = document.querySelectorAll(`.${styles.section}`)
+        images = document.querySelectorAll(`.${styles.bg}`)
+        headings = gsap.utils.toArray(`.${styles.sectionHeading}`)
+        outerWrappers = gsap.utils.toArray(`.${styles.outer}`)
+        innerWrappers = gsap.utils.toArray(`.${styles.inner}`)
 
-        console.log(sections, images, outerWrappers, innerWrappers);
-        // let splitHeadings = headings.map(heading => new SplitText(heading, { type: "chars,words,lines", linesClass: "clip-text" }))
-        let currentIndex = -1;
-        let wrap = gsap.utils.wrap(0, sections.length);
-        let animating;
-      
+        console.log("headings: ", headings)
+        splitHeadings = headings.map((heading) => 
+          {
+            console.log(heading);
+            return new SplitText(heading, { type: "chars,words,lines"})
+          })
+          
+        console.log("splitHeadings: ", splitHeadings)
+        currentIndex = -1;
+        wrap = gsap.utils.wrap(0, sections.length);
+          
         gsap.set(outerWrappers, { yPercent: 100 });
         gsap.set(innerWrappers, { yPercent: -100 });
-        
-        function gotoSection(index, direction) {
-          index = wrap(index); // make sure it's valid
-          console.log("index:", index);
-          console.log("currentIndex:", currentIndex);
-          animating = true;
-          let fromTop = direction === -1,
-              dFactor = fromTop ? -1 : 1,
-              tl = gsap.timeline({
-                defaults: { duration: 1.25, ease: "power1.inOut" },
-                onComplete: () => animating = false
-              });
-          if (currentIndex >= 0) {
-            console.log("go to:", currentIndex);
-            // The first time this function runs, current is -1
-            gsap.set(sections[currentIndex], { zIndex: 0 });
-            tl.to(images[currentIndex], { yPercent: -15 * dFactor })
-              .set(sections[currentIndex], { autoAlpha: 0 });
-          }
-          console.log("doing gsap things");
-          gsap.set(sections[index], { autoAlpha: 1, zIndex: 1 });
-          tl.fromTo([outerWrappers[index], innerWrappers[index]], { 
-              yPercent: i => i ? -100 * dFactor : 100 * dFactor
-            }, { 
-              yPercent: 0 
-            }, 0)
-            .fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0);
-            // .fromTo(splitHeadings[index].chars, { 
-            //     autoAlpha: 0, 
-            //     yPercent: 150 * dFactor
-            // }, {
-            //     autoAlpha: 1,
-            //     yPercent: 0,
-            //     duration: 1,
-            //     ease: "power2",
-            //     stagger: {
-            //       each: 0.02,
-            //       from: "random"
-            //     }
-            //   }, 0.2);
-          
-          currentIndex = index;
-        }
         
         
         
@@ -145,14 +156,13 @@ export default function Home() {
           preventDefault: true
         });
 
-        
-        
-
       }, app)
       
+      gotoSection(0, 1);
 
       return () => ctx.revert();
     }, [])
+
 
     
     return (
@@ -173,26 +183,27 @@ export default function Home() {
           </div> */
           // END OF OLD CODE
         }
-        <div className={styles.welcomePage}>
+        {/* <div className={styles.welcomePage}>
           <p className={styles.welcomeText}>WELCOME</p>
-        </div>
+        </div> */}
         <div className={styles.body} ref={app}> 
-          <section className={`${styles.first} ${styles.section}`}>
+          <div className={`${styles.section}`}>
             <div className={styles.outer}>
               <div className={styles.inner}>
-                <div className={`${styles.bg} ${styles.bg1} ${styles.one}`}>
-                  <div className={`${styles.sectionHeading} ${styles.h2}`}>
-                    <div className={styles.heroTitleWrapper}>
-                      <p>Pay Less.</p>
-                      <p><span className={styles.ownStyle}>Own</span> More.</p>
-                    </div>
+                <div className={`${styles.bg} ${styles.bg1}`}>
+                  {/* <h2 className={`${styles.sectionHeading} ${styles.h2}`}>
+                      More styling to one...
+                  </h2> */}
+                  <div className={`${styles.sectionHeading} ${styles.heroTitleWrapper} ${styles.h2}`}>
+                    <p>Pay Less.</p>
+                    <p><span className={styles.ownStyle}>Own</span> More.</p>
                   </div>
                 </div>
               </div>
             </div>
 
-          </section>
-          <section className={`${styles.second} ${styles.section}`}>
+          </div>
+          <div className={`${styles.section}`}>
             <div className={styles.outer}>
               <div className={styles.inner}>
                 <div className={`${styles.bg} ${styles.bg2}`}>
@@ -202,7 +213,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>
+          </div>
 {/*           
           <section className={`${styles.third} ${styles.section}`}>
             <div className={styles.outer}>
