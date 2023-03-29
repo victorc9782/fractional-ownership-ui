@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useAccount, useDisconnect, useSigner } from "wagmi";
+import { useAccount, useDisconnect, useSigner, configureChains } from "wagmi";
 import { useRouter } from "next/router";
 import { Input } from "@nextui-org/react";
 
@@ -23,6 +23,7 @@ export default function Trade() {
     const [propertiesSharePrice, setPropertiesSharePrice] = useState(0);
     const [propertiesRemainingShares, setPropertiesRemainingShares] = useState(0);
     const [propertiesOwningShares, setPropertiesOwningShares] = useState(0);
+    const [approvedBuy, setApprovedBuy] = useState(false);
     
     const [amountInput, setAmountInput] = useState(0);
 
@@ -30,10 +31,11 @@ export default function Trade() {
 
     const init = async () => {
         try {
-            const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+            const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
+
             const fractionalOwnershipContract = new ethers.Contract(contractAddress, FRACTION_OWNERSHIP_ABI.abi, provider);
         
-            const propertiesInfo = await fractionalOwnershipContract.getInfo();
+            const propertiesInfo = await fractionalOwnershipContract.getInfo(address);
             setIsContractValid(true);
 
             setPropertiesName(propertiesInfo.name)
@@ -41,6 +43,7 @@ export default function Trade() {
             setPropertiesTotalShares(propertiesInfo.totalShares.toNumber())
             setPropertiesSharePrice(propertiesInfo.sharePrice.toNumber())
             setPropertiesRemainingShares(propertiesInfo.remainingShares.toNumber())
+            setApprovedBuy(propertiesInfo.approvedBuy)
 
             const owningShares = await fractionalOwnershipContract.getOwningShares(address);
             setPropertiesOwningShares(owningShares.toNumber())
@@ -111,14 +114,15 @@ export default function Trade() {
     }
 
     useEffect(() => {
-        if (router.isReady ) {
+        console.log(address)
+        if (router.isReady) {
             if(isConnected){
                 init();
             } else {
                 router.push("/", undefined, { scroll: false });
             }
         }
-    }, [isConnected, router.isReady]);
+    }, [isConnected, address, router.isReady]);
 
     return (
         <>
@@ -145,9 +149,10 @@ export default function Trade() {
                             required
                             onChange={onChangeAmountPicker}
                             value={amountInput}
+                            disabled={!approvedBuy}
                         />
-                        <button type="button" class="btn btn-outline-success" onClick={buyShares}>Buy</button>
-                        <button type="button" class="btn btn-outline-danger" onClick={sellShares}>Sell</button>
+                        <button type="button" class="btn btn-outline-success" onClick={buyShares} disabled={!approvedBuy}>Buy</button>
+                        <button type="button" class="btn btn-outline-danger" onClick={sellShares} disabled={!approvedBuy}>Sell</button>
                     </div>
                 </div>}
             </div>
