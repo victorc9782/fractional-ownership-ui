@@ -10,9 +10,9 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 import styles from '../styles/home.module.css'
 import { Observer } from "gsap/Observer";
-import { SplitText } from "gsap/SplitText";
+// import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(Observer);
-gsap.registerPlugin(SplitText);
+// gsap.registerPlugin(SplitText);
 
 
 export default function Home() {
@@ -113,19 +113,19 @@ export default function Home() {
             yPercent: 0 
           }, 0)
           .fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0)
-          .fromTo(splitHeadings[index].chars, { 
-            autoAlpha: 0, 
-            yPercent: 150 * dFactor
-          }, {
-            autoAlpha: 1,
-            yPercent: 0,
-            duration: 0,
-            ease: "circ.out", 
-            stagger: {
-              each: 0.05,
-            }
-          }, 0.2);
-          break;
+          // .fromTo(splitHeadings[index].chars, { 
+          //   autoAlpha: 0, 
+          //   yPercent: 150 * dFactor
+          // }, {
+          //   autoAlpha: 1,
+          //   yPercent: 0,
+          //   duration: 0,
+          //   ease: "circ.out", 
+          //   stagger: {
+          //     each: 0.05,
+          //   }
+          // }, 0.2);
+          // break;
         
         case 1: 
           tl.fromTo([outerWrappers[index], innerWrappers[index]], { 
@@ -134,18 +134,18 @@ export default function Home() {
             yPercent: 0 
           }, 0)
           .fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0)
-          .fromTo(splitHeadings[index].chars, { 
-            autoAlpha: 0, 
-            yPercent: 150 * dFactor
-          }, {
-            autoAlpha: 1,
-            yPercent: 0,
-            duration: 1,
-            ease: "circ.out", 
-            stagger: {
-              each: 0.05,
-            }
-          }, 0.2)
+          // .fromTo(splitHeadings[index].chars, { 
+          //   autoAlpha: 0, 
+          //   yPercent: 150 * dFactor
+          // }, {
+          //   autoAlpha: 1,
+          //   yPercent: 0,
+          //   duration: 1,
+          //   ease: "circ.out", 
+          //   stagger: {
+          //     each: 0.05,
+          //   }
+          // }, 0.2)
           .fromTo(ownBoxes, 
             {
               x: windowWidth/4,
@@ -211,11 +211,11 @@ export default function Home() {
         windowWidth = window.innerWidth;
 
         console.log("headings: ", headings)
-        splitHeadings = headings.map((heading) => 
-          {
-            console.log(heading);
-            return new SplitText(heading, { type: "chars,words,lines"})
-          })
+        // splitHeadings = headings.map((heading) => 
+        //   {
+        //     console.log(heading);
+        //     return new SplitText(heading, { type: "chars,words,lines"})
+        //   })
           
         console.log("splitHeadings: ", splitHeadings)
         currentIndex = -1;
