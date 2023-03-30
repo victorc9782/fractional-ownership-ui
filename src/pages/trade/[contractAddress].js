@@ -29,24 +29,27 @@ export default function Trade() {
 
     const [isShowTransactionSuccessAlert, setIsShowTransactionSuccessAlert] = useState(false);
 
+    const getTradeInfo = async (address) => {
+        const response = await fetch(`/api/trade/${contractAddress}?walletAddress=${address}`, {
+            method: "get"
+        });
+        return response.json();
+    }
+
     const init = async () => {
         try {
-            const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
-
-            const fractionalOwnershipContract = new ethers.Contract(contractAddress, FRACTION_OWNERSHIP_ABI.abi, provider);
+            setIsLoading(true);
+            const propertiesInfo = await getTradeInfo(address)
         
-            const propertiesInfo = await fractionalOwnershipContract.getInfo(address);
             setIsContractValid(true);
 
             setPropertiesName(propertiesInfo.name)
             setPropertiesDescription(propertiesInfo.description)
-            setPropertiesTotalShares(propertiesInfo.totalShares.toNumber())
-            setPropertiesSharePrice(propertiesInfo.sharePrice.toNumber())
-            setPropertiesRemainingShares(propertiesInfo.remainingShares.toNumber())
+            setPropertiesTotalShares(propertiesInfo.totalShares)
+            setPropertiesSharePrice(propertiesInfo.sharePrice)
+            setPropertiesRemainingShares(propertiesInfo.remainingShares)
             setApprovedBuy(propertiesInfo.approvedBuy)
-
-            const owningShares = await fractionalOwnershipContract.getOwningShares(address);
-            setPropertiesOwningShares(owningShares.toNumber())
+            setPropertiesOwningShares(propertiesInfo.owningShares)
 
             setAmountInput(0);
         } catch (err) {
