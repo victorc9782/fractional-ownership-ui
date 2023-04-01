@@ -161,7 +161,7 @@ export default function Home() {
               y: (i) => {
                 return (window.innerHeight/2-50)-ownBoxes[0].clientHeight*i;
               },
-              stagger:0.3
+              stagger:0.1
             
           })
           .fromTo(rentBoxes, 
@@ -179,7 +179,7 @@ export default function Home() {
               y: (i) => {
                 return (window.innerHeight/2-50)-ownBoxes[0].clientHeight*i;
               },
-              stagger:0.3
+              stagger:0.1
             
           })
           console.log("ownbox",ownBoxes[0].clientHeight);
