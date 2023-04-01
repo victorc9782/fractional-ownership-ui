@@ -15,6 +15,11 @@ if (!process.env.NEXT_PUBLIC_PROJECT_ID) {
   }
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
+
+if (!process.env.NEXT_PUBLIC_RPC_URL) {
+    throw new Error("You need to provide chain url");
+}
+
 // 2. Configure wagmi client
 const chains = [
     sepolia

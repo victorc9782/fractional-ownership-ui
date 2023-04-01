@@ -19,7 +19,7 @@ export default function Home() {
     const { isConnected, address } = useAccount();
     useEffect(() => {
         if(isConnected){
-            const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+            const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
             console.log(`address: ${address}`)
             provider.getBalance(address).then((balance) => {
                 // convert a currency unit from wei to ether
