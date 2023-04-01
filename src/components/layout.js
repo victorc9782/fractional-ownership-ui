@@ -60,10 +60,10 @@ const Layout = ({ children }) => {
                     {isConnected && (
                         <li className="nav-item">
                             <Link
-                                href="/dashboard"
+                                href="/properties"
                                 className="nav-link"
                             >
-                                Dashboard
+                                Properties
                             </Link>
                         </li>
                     )}

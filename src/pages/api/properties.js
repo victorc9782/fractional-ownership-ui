@@ -16,6 +16,7 @@ export default async function handler(req, res) {
                 getPropertyInfo(contractAddress, walletAddress)
                 .then((info) => {
                     propertiesInfo = info
+                    propertiesInfo.contractAddress = contractAddress
                 })
                 .catch((err) => {
                     console.log(err)
