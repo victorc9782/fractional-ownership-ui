@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Card, Text, Row, Col, Button, Progress, Loading, Modal, Pagination, Image } from '@nextui-org/react';
-import { useAccount, useDisconnect, useSigner, configureChains } from "wagmi";
+import { useAccount, useSigner } from "wagmi";
 import { useRouter } from "next/router";
 import { Input } from "@nextui-org/react";
 
@@ -36,12 +36,12 @@ export default function Trade() {
 
 
     const [isHousePhotoModelVisible, setIsHousePhotoModelVisible] = useState(false);
-    const [housePhotoModelPaging, setHousePhotoModelPaging] = useState(1);
+    const [housePhotoModalPaging, sethousePhotoModalPaging] = useState(1);
     const [housePhotoModalPhotoPath, setHousePhotoModalPhotoPath] = useState([]);
 
     const housePhotoModelOpenHandler = () => setIsHousePhotoModelVisible(true);
     const housePhotoModelCloseHandler = () => setIsHousePhotoModelVisible(false);
-    const onChangeHousePhotoModelPaging = (page) => setHousePhotoModelPaging(page);
+    const onChangehousePhotoModalPaging = (page) => sethousePhotoModalPaging(page);
 
     const getTradeInfo = async (address) => {
         const response = await fetch(`/api/trade/${contractAddress}?walletAddress=${address}`, {
@@ -273,7 +273,7 @@ export default function Trade() {
                                     <Image
                                         objectFit="cover"
                                         height="800px"
-                                        src={`/${housePhotoModalPhotoPath[housePhotoModelPaging-1]}`}
+                                        src={`/${housePhotoModalPhotoPath[housePhotoModalPaging-1]}`}
                                         alt="House Image"
                                     >
                                     </Image>
@@ -289,7 +289,7 @@ export default function Trade() {
                                     }}
                                     >
                                     <Row justify="center">
-                                        <Pagination page={housePhotoModelPaging} onlyDots size="xs" total={housePhotoModalPhotoPath.length} loop onChange={onChangeHousePhotoModelPaging}/>
+                                        <Pagination page={housePhotoModalPaging} onlyDots size="xs" total={housePhotoModalPhotoPath.length} loop onChange={onChangehousePhotoModalPaging}/>
                                     </Row>
                                 </Card.Footer>
                             </Card>
