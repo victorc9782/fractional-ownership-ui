@@ -162,7 +162,7 @@ export default function Trade() {
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setIsShowTransactionSuccessAlert(false)}></button>
                         </div>
                     }
-                    <Card css={{ w: "100%", h: "600px" }} isPressable onPress={housePhotoModelOpenHandler}>
+                    <Card css={{ w: "100%", h: "600px" }} disableAnimation disableRipple>
                         <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                             <Col>
                                 <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
@@ -173,7 +173,7 @@ export default function Trade() {
                                 </Text>
                             </Col>
                         </Card.Header>
-                        <Card.Body css={{ p: 0 }}>
+                        <Card.Body css={{ p: 0 }} onClick={housePhotoModelOpenHandler}>
                             <Card.Image
                                 src={`/${propertiesPhotoPath}`}
                                 objectFit="cover"
@@ -268,7 +268,7 @@ export default function Trade() {
                         onClose={housePhotoModelCloseHandler}
                     >
                         <Modal.Body>
-                            <Card>
+                            <Card disableAnimation>
                                 <Card.Body css={{ p: 0 }}>
                                     <Image
                                         objectFit="cover"
