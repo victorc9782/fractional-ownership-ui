@@ -202,12 +202,12 @@ export default function Trade() {
                                 <Col>
                                     <Row justify="center">
                                         <Col>
-                                                <Progress value={propertiesRemainingShares/propertiesTotalShares*100} color="primary" />
+                                            <Progress value={(propertiesTotalShares-propertiesRemainingShares)/propertiesTotalShares*100} color="primary" />
                                         </Col>
                                     </Row>
                                     <Row justify="center">
                                         <Text color="white" size={12}>
-                                            {propertiesRemainingShares}/{propertiesTotalShares}
+                                            {(propertiesTotalShares-propertiesRemainingShares)}/{propertiesTotalShares}
                                         </Text>
                                     </Row>
 
