@@ -20,10 +20,13 @@ export default function Trade() {
     const [isContractValid, setIsContractValid] = useState(false);
     const [propertiesName, setPropertiesName] = useState('');
     const [propertiesDescription, setPropertiesDescription] = useState('');
+    const [propertiesAddress, setPropertiesAddress] = useState('');
     const [propertiesTotalShares, setPropertiesTotalShares] = useState(0);
     const [propertiesSharePrice, setPropertiesSharePrice] = useState(0);
     const [propertiesRemainingShares, setPropertiesRemainingShares] = useState(0);
     const [propertiesOwningShares, setPropertiesOwningShares] = useState(0);
+    const [propertiesPhotoPath, setpropertiesPhotoPath] = useState('house.jpeg');
+
     const [approvedBuy, setApprovedBuy] = useState(false);
     const [isTrading, setIsTrading] = useState(false);
     
@@ -48,11 +51,13 @@ export default function Trade() {
 
             setPropertiesName(propertiesInfo.name)
             setPropertiesDescription(propertiesInfo.description)
+            setPropertiesAddress(propertiesInfo.propertyAddress)
             setPropertiesTotalShares(propertiesInfo.totalShares)
             setPropertiesSharePrice(propertiesInfo.sharePrice)
             setPropertiesRemainingShares(propertiesInfo.remainingShares)
             setApprovedBuy(propertiesInfo.approvedBuy)
             setPropertiesOwningShares(propertiesInfo.owningShares)
+            setpropertiesPhotoPath(propertiesInfo.photoPath)
 
             setAmountInput(0);
         } catch (err) {
@@ -151,7 +156,7 @@ export default function Trade() {
                         <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                             <Col>
                                 <Text size={12} weight="bold" transform="uppercase" color="#9E9E9E">
-                                    New
+                                    {propertiesAddress}
                                 </Text>
                                 <Text h3 color="white">
                                     {propertiesName}
@@ -160,7 +165,7 @@ export default function Trade() {
                         </Card.Header>
                         <Card.Body css={{ p: 0 }}>
                             <Card.Image
-                                src="/house.jpeg"
+                                src={`/${propertiesPhotoPath}`}
                                 objectFit="cover"
                                 width="100%"
                                 height="100%"
