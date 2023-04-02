@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Card, Text } from '@nextui-org/react';
+import { Grid, Card, Text } from '@nextui-org/react';
 import { useAccount } from "wagmi";
 
 
@@ -32,17 +32,18 @@ export default function Properties() {
     const propertyCard = (property) => {
         console.log(property);
         return (
-            <Card 
-                css={{ mw: "400px" }}
-                isPressable
-                onPress={() => onPressPropertyCardPress(property.contractAddress)}
-            >
-                <Card.Body>
-                <Text>{property.name}</Text>
-                <Text>{property.description}</Text>
-                </Card.Body>
-            </Card>
-
+            <Grid xs={12} md={6}>
+                <Card 
+                    // css={{ mw: "400px" }}
+                    isPressable
+                    onPress={() => onPressPropertyCardPress(property.contractAddress)}
+                >
+                    <Card.Body>
+                    <Text>{property.name}</Text>
+                    <Text>{property.description}</Text>
+                    </Card.Body>
+                </Card>
+            </Grid>
         )
     };
     
@@ -59,9 +60,9 @@ export default function Properties() {
         <>
             {isConnected && isLoading && <div>Loading...</div>}
             {isConnected && !isLoading && 
-                <div>
+                <Grid.Container gap={1} justify="center">
                     {_.map(properties, property => propertyCard(property))}
-                </div>
+                </Grid.Container>
             }
         </>
     )
