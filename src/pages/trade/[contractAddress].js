@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 export default function Trade() {
     const { isConnected, address } = useAccount();
-    const { data: signer, isError } = useSigner()
+    const { data: signer } = useSigner()
     const router = useRouter();
     const { contractAddress } = router.query;
 

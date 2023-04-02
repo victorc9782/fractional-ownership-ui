@@ -2,9 +2,8 @@ import _ from 'lodash';
 
 import Link from "next/link";
 import Head from 'next/head'
-import { Button } from "@nextui-org/react";
 import { Dropdown } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import 'bootstrap/dist/css/bootstrap.css'

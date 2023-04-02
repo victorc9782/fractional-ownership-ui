@@ -4,10 +4,8 @@ import { useEffect, useState } from "react";
 
 import { EthereumClient, w3mProvider, w3mConnectors } from "@web3modal/ethereum";
 import { Web3Modal } from "@web3modal/react";
-import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { sepolia } from "wagmi/chains";
-import { ethers } from "ethers";
 
 // 1. Get projectID at https://cloud.walletconnect.com
 if (!process.env.NEXT_PUBLIC_PROJECT_ID) {

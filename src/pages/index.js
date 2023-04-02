@@ -1,7 +1,6 @@
-import { Inter } from 'next/font/google'
-import { useEffect, useRef, useState, useLayoutEffect, useContext } from "react";
+import { useEffect, useRef, useLayoutEffect} from "react";
 const ethers = require('ethers')
-import { useAccount, ContractMethodNoResultError } from "wagmi";
+import { useAccount } from "wagmi";
 
 // gsap related imports
 import { gsap } from "gsap";
