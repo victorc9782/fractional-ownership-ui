@@ -155,7 +155,7 @@ export default function Trade() {
                     <Card css={{ w: "100%", h: "600px" }}>
                         <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                             <Col>
-                                <Text size={12} weight="bold" transform="uppercase" color="#9E9E9E">
+                                <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
                                     {propertiesAddress}
                                 </Text>
                                 <Text h3 color="white">
