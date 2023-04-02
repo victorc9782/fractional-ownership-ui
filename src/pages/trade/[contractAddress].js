@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Card, Text, Row, Col, Button, Progress, Loading } from '@nextui-org/react';
+import { Card, Text, Row, Col, Button, Progress, Loading, Modal, Pagination, Image } from '@nextui-org/react';
 import { useAccount, useDisconnect, useSigner, configureChains } from "wagmi";
 import { useRouter } from "next/router";
 import { Input } from "@nextui-org/react";
@@ -34,6 +34,15 @@ export default function Trade() {
 
     const [isShowTransactionSuccessAlert, setIsShowTransactionSuccessAlert] = useState(false);
 
+
+    const [isHousePhotoModelVisible, setIsHousePhotoModelVisible] = useState(false);
+    const [housePhotoModelPaging, setHousePhotoModelPaging] = useState(1);
+    const [housePhotoModalPhotoPath, setHousePhotoModalPhotoPath] = useState([]);
+
+    const housePhotoModelOpenHandler = () => setIsHousePhotoModelVisible(true);
+    const housePhotoModelCloseHandler = () => setIsHousePhotoModelVisible(false);
+    const onChangeHousePhotoModelPaging = (page) => setHousePhotoModelPaging(page);
+
     const getTradeInfo = async (address) => {
         const response = await fetch(`/api/trade/${contractAddress}?walletAddress=${address}`, {
             method: "get"
@@ -60,6 +69,8 @@ export default function Trade() {
             setpropertiesPhotoPath(propertiesInfo.photoPath)
 
             setAmountInput(0);
+
+            setHousePhotoModalPhotoPath(propertiesInfo.modalPhotoPaths)
         } catch (err) {
           console.error(err);
         } finally {
@@ -151,8 +162,7 @@ export default function Trade() {
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setIsShowTransactionSuccessAlert(false)}></button>
                         </div>
                     }
-
-                    <Card css={{ w: "100%", h: "600px" }}>
+                    <Card css={{ w: "100%", h: "600px" }} isPressable onPress={housePhotoModelOpenHandler}>
                         <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                             <Col>
                                 <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
@@ -249,6 +259,42 @@ export default function Trade() {
                             </Row>
                         </Card.Footer>
                     </Card>
+                    <Modal
+                        fullScreen
+                        blur
+                        closeButton
+                        aria-labelledby="modal-title"
+                        open={isHousePhotoModelVisible}
+                        onClose={housePhotoModelCloseHandler}
+                    >
+                        <Modal.Body>
+                            <Card>
+                                <Card.Body css={{ p: 0 }}>
+                                    <Image
+                                        objectFit="cover"
+                                        height="800px"
+                                        src={`/${housePhotoModalPhotoPath[housePhotoModelPaging-1]}`}
+                                        alt="House Image"
+                                    >
+                                    </Image>
+                                </Card.Body>
+                                <Card.Footer
+                                    isBlurred
+                                    css={{
+                                        position: "absolute",
+                                        bgBlur: "#0f111466",
+                                        borderTop: "$borderWeights$light solid $gray800",
+                                        bottom: 0,
+                                        zIndex: 1,
+                                    }}
+                                    >
+                                    <Row justify="center">
+                                        <Pagination page={housePhotoModelPaging} onlyDots size="xs" total={housePhotoModalPhotoPath.length} loop onChange={onChangeHousePhotoModelPaging}/>
+                                    </Row>
+                                </Card.Footer>
+                            </Card>
+                        </Modal.Body>
+                    </Modal>
                 </div>}
             </div>
         </>
