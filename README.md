@@ -4,6 +4,10 @@ This project is developed with Next.js + solidity + hardhat for hackUST 2023 by 
 
 ## Demo
 [https://fractional-ownership-ui.vercel.app/](https://fractional-ownership-ui.vercel.app/)
+
+Please connect you wallet and switch to Sepolia testnet for explore the UI.
+
+Reminder: Only authorized wallets can trade in the platform
 ## Getting Started
 
 First, run the development server:
