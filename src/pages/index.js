@@ -112,19 +112,6 @@ export default function Home() {
             yPercent: 0 
           }, 0)
           .fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0)
-          // .fromTo(splitHeadings[index].chars, { 
-          //   autoAlpha: 0, 
-          //   yPercent: 150 * dFactor
-          // }, {
-          //   autoAlpha: 1,
-          //   yPercent: 0,
-          //   duration: 0,
-          //   ease: "circ.out", 
-          //   stagger: {
-          //     each: 0.05,
-          //   }
-          // }, 0.2);
-          // break;
         
         case 1: 
           tl.fromTo([outerWrappers[index], innerWrappers[index]], { 
@@ -133,68 +120,46 @@ export default function Home() {
             yPercent: 0 
           }, 0)
           .fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0)
-          // .fromTo(splitHeadings[index].chars, { 
-          //   autoAlpha: 0, 
-          //   yPercent: 150 * dFactor
-          // }, {
-          //   autoAlpha: 1,
-          //   yPercent: 0,
-          //   duration: 1,
-          //   ease: "circ.out", 
-          //   stagger: {
-          //     each: 0.05,
-          //   }
-          // }, 0.2)
-          .fromTo(ownBoxes, 
-            {
-              x: windowWidth/4,
-              // start from bottom + footer height
-              // y: window.innerHeight/2,
-              y: (window.innerHeight/2-50),
-              opacity: 0
-            },
+          // .fromTo(ownBoxes, 
+          //   {
+          //     x: windowWidth/4,
+          //     // start from bottom + footer height
+          //     // y: window.innerHeight/2,
+          //     y: (window.innerHeight/2-50),
+          //     opacity: 0
+          //   },
             
-            {
-              opacity: 1,
-              duration:0.2,
-              y: (i) => {
-                return (window.innerHeight/2-50)-ownBoxes[0].clientHeight*i;
-              },
-              stagger:0.1
+          //   {
+          //     opacity: 1,
+          //     duration:0.2,
+          //     y: (i) => {
+          //       return (window.innerHeight/2-50)-ownBoxes[0].clientHeight*i;
+          //     },
+          //     stagger:0.1
             
-          })
-          .fromTo(rentBoxes, 
-            {
-              x: -windowWidth/4,
-              // start from bottom + footer height
-              // y: window.innerHeight/2,
-              y: (window.innerHeight/2-70),
-              opacity: 0
-            },
+          // })
+          // .fromTo(rentBoxes, 
+          //   {
+          //     x: -windowWidth/4,
+          //     // start from bottom + footer height
+          //     // y: window.innerHeight/2,
+          //     y: (window.innerHeight/2-70),
+          //     opacity: 0
+          //   },
             
-            {
-              opacity: 1,
-              duration:0.2,
-              y: (i) => {
-                return (window.innerHeight/2-50)-ownBoxes[0].clientHeight*i;
-              },
-              stagger:0.1
+          //   {
+          //     opacity: 1,
+          //     duration:0.2,
+          //     y: (i) => {
+          //       return (window.innerHeight/2-50)-ownBoxes[0].clientHeight*i;
+          //     },
+          //     stagger:0.1
             
-          })
-          console.log("ownbox",ownBoxes[0].clientHeight);
-          console.log("windowWidth",windowWidth);
-          console.log("window.innHeight",window.innerHeight);
+          // })
 
           // console.log(boxes[0])
           break;
       }
-
-
-      
-        
-
-
-
       currentIndex = index;
     }
     
@@ -205,9 +170,9 @@ export default function Home() {
         headings = gsap.utils.toArray(`.${styles.sectionHeading}`)
         outerWrappers = gsap.utils.toArray(`.${styles.outer}`)
         innerWrappers = gsap.utils.toArray(`.${styles.inner}`)
-        ownBoxes = gsap.utils.toArray(`.${styles.ownBox}`)
-        rentBoxes = gsap.utils.toArray(`.${styles.rentBox}`)
-        windowWidth = window.innerWidth;
+        // ownBoxes = gsap.utils.toArray(`.${styles.ownBox}`)
+        // rentBoxes = gsap.utils.toArray(`.${styles.rentBox}`)
+        // windowWidth = window.innerWidth;
 
         console.log("headings: ", headings)
         // splitHeadings = headings.map((heading) => 
@@ -216,7 +181,6 @@ export default function Home() {
         //     return new SplitText(heading, { type: "chars,words,lines"})
         //   })
           
-        console.log("splitHeadings: ", splitHeadings)
         currentIndex = -1;
         wrap = gsap.utils.wrap(0, sections.length);
           
@@ -288,14 +252,14 @@ export default function Home() {
                   <h2 className={`${styles.sectionHeading} ${styles.h2}`}>
                     How it works
                   </h2>
-                  <div className={`${styles.box} ${styles.ownBox}`}></div>
+                  {/* <div className={`${styles.box} ${styles.ownBox}`}></div>
                   <div className={`${styles.box} ${styles.ownBox}`}></div>
                   <div className={`${styles.box} ${styles.ownBox}`}></div>
                   <div className={`${styles.box} ${styles.ownBox}`}></div>
                   <div className={`${styles.box} ${styles.rentBox}`}></div>
                   <div className={`${styles.box} ${styles.rentBox}`}></div>
                   <div className={`${styles.box} ${styles.rentBox}`}></div>
-                  <div className={`${styles.box} ${styles.rentBox}`}></div>
+                  <div className={`${styles.box} ${styles.rentBox}`}></div> */}
                 </div>
               </div>
             </div>
