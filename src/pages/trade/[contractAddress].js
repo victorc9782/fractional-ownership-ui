@@ -152,7 +152,7 @@ export default function Trade() {
     return (
         <>
             <div className="container">
-                {isConnected && isLoading && <div>Loading...</div>}
+                {isConnected && isLoading && <div class="d-flex justify-content-center"><Loading loadingCss={{ $$loadingSize: "400px", $$loadingBorder: "10px" }} color="primary"></Loading></div>}
                 {isConnected && !isLoading && !isContractValid && <div>Invalid properties<br/></div>}
                 {isConnected && !isLoading && isContractValid && 
                 <div>

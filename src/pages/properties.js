@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Grid, Card, Text, Row, Col, Progress } from '@nextui-org/react';
+import { Grid, Card, Text, Row, Col, Progress, Loading, Container } from '@nextui-org/react';
 import { useAccount } from "wagmi";
 
 
@@ -124,7 +124,7 @@ export default function Properties() {
     }, [isConnected, router.isReady]);
     return (
         <>
-            {isConnected && isLoading && <div>Loading...</div>}
+            {isConnected && isLoading && <div class="d-flex justify-content-center"><Loading loadingCss={{ $$loadingSize: "400px", $$loadingBorder: "10px" }} color="primary"></Loading></div>}
             {isConnected && !isLoading && 
                 <Grid.Container gap={1} justify="center">
                     {_.map(properties, property => propertyCard(property))}
