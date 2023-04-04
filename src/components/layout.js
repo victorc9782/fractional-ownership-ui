@@ -1,7 +1,8 @@
 import _ from 'lodash';
 
 import Link from "next/link";
-import Head from 'next/head'
+import Head from 'next/head';
+import Image from 'next/image';
 import { Dropdown } from "@nextui-org/react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -10,6 +11,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 import { useWeb3Modal } from "@web3modal/react";
 import { useAccount, useDisconnect } from "wagmi";
+
+import logoPic from '../../public/logo.png';
 
 const Layout = ({ children }) => {
     const { isConnected, address } = useAccount();
@@ -39,8 +42,15 @@ const Layout = ({ children }) => {
                 <meta name="description" content="Fractional shares of real estate in the Web3" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <nav className="navbar navbar-expand-lg navbar-light sticky-top ">
-                <a className="navbar-brand" href="#">LFG</a>
+            <nav className="navbar navbar-expand-lg navbar-light sticky-top px-4">
+                <a className="navbar-brand" href="#" >
+                    <Image
+                        src={logoPic}
+                        alt="Picture of the author"
+                        width={100}
+                    />
+                </a>
+                
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -52,8 +62,9 @@ const Layout = ({ children }) => {
                             href="/"
                             className="nav-link"
                             scroll={false}
+
                         >
-                            Home
+                            <div class="text-light">Home</div>
                         </Link>
                     </li>
                     {isConnected && (
@@ -62,7 +73,7 @@ const Layout = ({ children }) => {
                                 href="/properties"
                                 className="nav-link"
                             >
-                                Properties
+                                <div class="text-light">Properties</div>
                             </Link>
                         </li>
                     )}
