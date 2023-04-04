@@ -4,7 +4,7 @@ import Link from "next/link";
 import Head from 'next/head';
 import Image from 'next/image';
 import { Dropdown } from "@nextui-org/react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -12,21 +12,30 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { useWeb3Modal } from "@web3modal/react";
 import { useAccount, useDisconnect } from "wagmi";
 
-import logoPic from '../../public/logo.png';
+import logoWhitePic from '../../public/logo-white.png';
+import logoBlackPic from '../../public/logo-black.png';
 
 const Layout = ({ children }) => {
     const { isConnected, address } = useAccount();
     const { disconnect } = useDisconnect();
     const { open } = useWeb3Modal(); 
 
+    const [shouldIconColorLight, setShouldIconColorLight] = useState(true)
+
     const router = useRouter();
     useEffect(() => {
+        if(router.pathname === "/"){
+            setShouldIconColorLight(true);
+        } else{
+            setShouldIconColorLight(false);
+
+        }
         if (router.isReady && !isConnected) {
           // Redirect to homepage
           router.push("/", undefined, { scroll: false });
           console.log("run reroute");
         }
-    }, [isConnected, router.isReady]);
+    }, [isConnected, router.isReady, router.pathname]);
     //}, [isConnected, router, router.isReady]);
 
     const onMenuAction = (key)=> {
@@ -45,7 +54,7 @@ const Layout = ({ children }) => {
             <nav className="navbar navbar-expand-lg navbar-light sticky-top px-4">
                 <a className="navbar-brand" href="#" >
                     <Image
-                        src={logoPic}
+                        src={shouldIconColorLight?logoWhitePic:logoBlackPic}
                         alt="Picture of the author"
                         width={100}
                     />
@@ -64,7 +73,7 @@ const Layout = ({ children }) => {
                             scroll={false}
 
                         >
-                            <div class="text-light">Home</div>
+                            <div class={shouldIconColorLight?"text-light":"text-dark"}>Home</div>
                         </Link>
                     </li>
                     {isConnected && (
@@ -73,7 +82,7 @@ const Layout = ({ children }) => {
                                 href="/properties"
                                 className="nav-link"
                             >
-                                <div class="text-light">Properties</div>
+                                <div class={shouldIconColorLight?"text-light":"text-dark"}>Properties</div>
                             </Link>
                         </li>
                     )}
