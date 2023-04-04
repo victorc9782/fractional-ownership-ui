@@ -1,7 +1,7 @@
 import { useEffect, useRef, useLayoutEffect} from "react";
 const ethers = require('ethers')
 import { useAccount } from "wagmi";
-
+import Link from 'next/link'
 // gsap related imports
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -239,6 +239,10 @@ export default function Home() {
                   <div className={`${styles.sectionHeading} ${styles.heroTitleWrapper} ${styles.h2}`}>
                     <p>Pay Less.</p>
                     <p><span className={styles.ownStyle}>Own</span> More.</p>
+                    <p className={styles.mainSubtext}>
+                      Fractional Ownership provides a way for individuals to own and rent their property at the same time.
+                    </p>
+                    
                   </div>
                 </div>
               </div>
@@ -249,9 +253,14 @@ export default function Home() {
             <div className={styles.outer}>
               <div className={styles.inner}>
                 <div className={`${styles.bg} ${styles.bg2}`}>
-                  <h2 className={`${styles.sectionHeading} ${styles.h2}`}>
-                    How it works
-                  </h2>
+                    <div className={`${styles.section2}`}>
+                      <p className={`${styles.text2}`}>
+                        <span className={styles.bold}>
+                          The simplest way towards home ownership.
+                        </span>
+                        <button> Browse </button>
+                      </p>
+                    </div>
                   {/* <div className={`${styles.box} ${styles.ownBox}`}></div>
                   <div className={`${styles.box} ${styles.ownBox}`}></div>
                   <div className={`${styles.box} ${styles.ownBox}`}></div>

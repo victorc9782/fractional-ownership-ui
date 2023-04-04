@@ -2,7 +2,10 @@
 
 .heroTitleWrapper {
   position: absolute;
-  font-size: 8em;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  font-size: 4em;
   /* color: rgb(66, 66, 66); */
   color: white;
   /* -webkit-text-stroke: 2px rgb(29, 29, 29); width and color */
@@ -13,6 +16,10 @@
   opacity: 0.2;
   border-radius: 5px;
   /* background: rgb(37, 37, 37); */
+  user-select: none;
+  font-weight: 700;
+  /* width: 80vw; */
+  max-width: 1200px;
 }
 @keyframes background-pan {
   from {
@@ -22,6 +29,11 @@
   to {
     background-position: -200% center;
   }
+}
+
+.mainSubtext{
+  font-size: 12px;
+  font-weight: 500;
 }
 
 
@@ -43,15 +55,7 @@
   /* -webkit-text-stroke: 1px; width and color */
 }
 
-/* start new css */
-/* @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap"); */
 
-
-/* a {
-  color: #fff;
-  text-decoration: none;
-} */
 .sectionHeading {
   opacity: 1;
 }
@@ -60,7 +64,7 @@
   margin: 0;
   padding: 0;
   height: calc(100vh - 56px);
-  color: black;
+  color: white;
   background: white;
   
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
@@ -68,38 +72,7 @@
   /* opacity: 0.2; */
 } 
 
-.h2 {
-  user-select: none;
-  font-weight: 500;
-  width: 80vw;
-  max-width: 1200px;
-}
-/* 
-header {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 5%;
-  width: 100%;
-  z-index: 3;
-  height: 7em;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: clamp(0.66rem, 2vw, 1rem);
-  letter-spacing: 0.5em;
-} */
 
-.welcomeText {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border: 4px solid red;
-  border-radius: 2%;
-  transform: translate(-50%, -50%);
-  color: black;
-  font-size: 12rem;
-  font-weight: bold;
-}
 
 .section {
   height: 100%;
@@ -140,35 +113,23 @@ header {
   z-index: 3;
 }
 
-.bg2 > h2{
-  position: absolute;
-  font-size: 8em;
-}
 
 .box {
   z-index: 2;
 }
 
-.ownBox{
-  box-sizing: border-box;
-  position: absolute;
-  background-color: #0582CA;
-  border: 1px solid white;
-  min-height: 5%;
-  aspect-ratio: 3;
+.link {
+  font-size: 8px;
 }
 
-.rentBox{
-  box-sizing: border-box;
-  position: absolute;
-  background-color: #0582CA;
-  border: 1px solid red;
-  min-height: 5%;
-  aspect-ratio: 3;
+.text2 {
+  font-size: 2rem;
+
 }
 
-
-
+.bold {
+  font-weight: 700;
+}
 
 .bg1 {
   /* background: black; */
@@ -177,13 +138,14 @@ header {
     rgba(0, 0, 0, 0.6) 0%,
     rgba(0, 0, 0, 0.3) 100%
   ),
-    url("https://preview.free3d.com/img/2019/12/2206098452058735689/w3fenr6b.jpg");
+    /* url("https://images.lifestyleasia.com/wp-content/uploads/2017/12/19170305/ALASSIO_-2.jpg"); */
+    url("https://images.unsplash.com/photo-1644672783709-f2804d3b65d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80");
+    /* url("https://preview.free3d.com/img/2019/12/2206098452058735689/w3fenr6b.jpg"); */
+    /* url("https://media1.giphy.com/media/eN4O2EqeW1lFqRg6dS/giphy.gif?cid=ecf05e47a14x4691qv1bgbx0lk3ldml0fgcshfcarl8yj4pc&rid=giphy.gif&ct=g"); */
     /* url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b780d885-6b1d-4f19-ad7e-f7b7cb2cc102/d7hglyw-bc49b094-6e8a-4614-981c-329fe72b96ad.jpg/v1/fill/w_1600,h_1318,q_75,strp/interior_drawing_by_jyf1982_d7hglyw-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTMxOCIsInBhdGgiOiJcL2ZcL2I3ODBkODg1LTZiMWQtNGYxOS1hZDdlLWY3YjdjYjJjYzEwMlwvZDdoZ2x5dy1iYzQ5YjA5NC02ZThhLTQ2MTQtOTgxYy0zMjlmZTcyYjk2YWQuanBnIiwid2lkdGgiOiI8PTE2MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.RGts13FdD91YyxSgaBTjnLhUa1-p8_r0_Vq4nY1xVbc"); */
-    /* url("https://images.unsplash.com/photo-1515511856280-7b23f68d2996?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80"); */
-    /* url("https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"); */
+    /* url("https://images.unsplash.com/photo-1520531158340-44015069e78e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1872&q=80"); */
 
 }
-
 
 
 .bg2 {
@@ -194,21 +156,17 @@ header {
   rgba(0, 0, 0, 0.6) 0%,
   rgba(0, 0, 0, 0.3) 100%
   ),
-    /* url("https://preview.free3d.com/img/2019/12/2206098452058735689/mru99aio.jpg"); */
-    url("https://preview.free3d.com/img/2019/12/2206098452058735689/5zrq2ins.jpg");
-    /* url("https://images.unsplash.com/photo-1547104984-924116a9c464?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1430&q=80"); */
-    /* url("https://images.unsplash.com/photo-1515511856280-7b23f68d2996?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80"); */
-    /* url("https://images.unsplash.com/photo-1481277542470-605612bd2d61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1612&q=80"); */
-    /* url("https://images.unsplash.com/photo-1452201200613-08b99de5b0b8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1473&q=80"); */
-}
-
-
-
-
-
-.bg3 {
-  background-image: 
-    url("https://images.unsplash.com/photo-1617438817509-70e91ad264a5?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYxNzU2MDk4Mg&ixlib=rb-1.2.1&q=75&w=1920");
+    /* url("https://preview.free3d.com/img/2019/12/2206098452058735689/66l83998.jpg"); */
+    url("https://images.lifestyleasia.com/wp-content/uploads/2017/12/19170305/ALASSIO_-2.jpg");
+  }
+  
+  
+  
+  
+  
+  .bg3 {
+    background-image: 
+    url("https://preview.free3d.com/img/2019/12/2206098452058735689/66l83998.jpg");
 }
 
 
@@ -225,7 +183,7 @@ header {
     url("https://images.unsplash.com/photo-1617141636403-f511e2d5dc17?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYxODAzMjc4Mw&ixlib=rb-1.2.1&q=75w=1920");
   background-position: 50% 45%;
 } 
- 
+
 
 
 
@@ -234,7 +192,7 @@ header {
     font-size: 7em;
   }
   .bg2 > h2{
-    font-size: 7em;
+    font-size: 5em;
   }
 }
 
@@ -244,7 +202,7 @@ header {
     font-size: 5em;
   }
   .bg2 > h2{
-    font-size: 5em;
+    font-size: 3em;
   }
 }
 @media screen and (max-width: 420px) {
@@ -252,6 +210,6 @@ header {
     font-size: 3.5em;
   }
   .bg2 > h2{
-    font-size: 3.5em;
+    font-size: 1.5em;
   }
 }
