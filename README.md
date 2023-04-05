@@ -31,3 +31,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 [https://github.com/victorc9782/fractional-ownership-hardhat](https://github.com/victorc9782/fractional-ownership-hardhat)
 ### Demo Site
 [https://fractional-ownership-ui.vercel.app/](https://fractional-ownership-ui.vercel.app/)
+
+
+## Design
+![alt text](Design.drawio.png)
