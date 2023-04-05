@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Dropdown } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import styles from "../styles/layout.module.css";
 
 import 'bootstrap/dist/css/bootstrap.css'
 
@@ -95,11 +96,12 @@ const Layout = ({ children }) => {
                 <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
                     {!isConnected && (
                         <li class="nav-item">
-                            <button type="button" onClick={() => open()} class="btn btn-primary" >Connect Wallet</button>
+                            <button type="button" onClick={() => open()} class="btn btn-primary" className={styles.connectWalletButton} >Connect Wallet</button>
                         </li>
                     ) || (
                         <li class="nav-item">
                             <Dropdown>
+                                {/* <Dropdown.Button color="secondary" flat> */}
                                 <Dropdown.Button flat>
                                     {address}
                                 </Dropdown.Button>

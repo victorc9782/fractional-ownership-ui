@@ -163,9 +163,9 @@ export default function Home() {
                           }}>Simplest</span>
                            Way Towards Home Ownership. 
                         </span>
-                        <p className={styles.about}>
-                          Get started by connecting your wallet.
-                        </p>
+                      </p>
+                      <p className={styles.about}>
+                        Get started by connecting your wallet.
                       </p>
                     </div>
                 </div>

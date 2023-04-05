@@ -1,0 +1,55 @@
+
+
+.connectWalletButton {
+
+    color: white;
+    height: 50px;
+    position: relative;
+    /* background: linear-gradient(-90deg, #EE7752, #E73C7E, #23A6D5, #23D5AB, #EE7752); */
+    background: linear-gradient(-90deg, #0582ca, #ce62f8, #23A6D5, #24c7a1, #0582ca);
+    background-size: 400% 100%;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.25em;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 0px 5px;
+    animation: Gradient 4s ease infinite;
+    text-decoration: none;
+}
+
+.connectWalletButton div {
+    color: black;
+    min-height: 40px;
+    padding: 0 1.618em;
+    border-radius: inherit;
+    background-size: inherit;
+    background-image: inherit;
+    animation: Gradient 4s ease infinite;
+    position: relative;
+    z-index: 1;
+    mix-blend-mode: overlay;
+    font-family: 'Helvetica Neue';
+
+}
+
+@keyframes Gradient {
+    50% {
+        background-position: 140% 50%;
+    transform: skew(-2deg);
+    }
+}
+
+.connectWalletButton::after {
+content: '';
+position: absolute;
+background-size: inherit;
+background-image: inherit;
+animation: inherit;
+left: 0px;
+right: 0px;
+top: 2px;
+height: 100%;
+filter: blur(4rem);
+}
