@@ -157,7 +157,7 @@ export default function Home() {
                       <p className={`${styles.text2}`}>
                         <span className={styles.bold}>
                           The 
-                          <span style={{
+                          <span className={styles.ownStyle} style={{
                             padding: 9,
                             color: "#0582CA"
                           }}>Simplest</span>
