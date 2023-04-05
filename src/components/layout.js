@@ -3,7 +3,7 @@ import _ from 'lodash';
 import Link from "next/link";
 import Head from 'next/head';
 import Image from 'next/image';
-import { Dropdown } from "@nextui-org/react";
+import { Dropdown, Button } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "../styles/layout.module.css";
@@ -46,6 +46,25 @@ const Layout = ({ children }) => {
         if(key == "disconnect"){
             disconnect();
         }
+    }
+
+    const walletBtnCss = {
+        'color': shouldIconColorLight?'white':'black',
+        'height': '50px',
+        'position': 'relative',
+        'background': 'transparent',
+        'background-size': '400% 100%',
+        'text-transform': 'uppercase',
+        'font-weight': '700',
+        'border': 'none',
+        'border-radius': '0.25em',
+        'font-size': '13px',
+        'letter-spacing': '1px',
+        'padding': '0px 5px',
+        'animation': 'Gradient 4s ease infinite',
+        'text-decoration': 'none',
+        'border': shouldIconColorLight?'1px solid white':'1px solid black',
+        'border-radius': '32px'
     }
   
     return (
@@ -96,13 +115,18 @@ const Layout = ({ children }) => {
                 <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
                     {!isConnected && (
                         <li class="nav-item">
-                            <button type="button" onClick={() => open()} class="btn btn-primary" className={styles.connectWalletButton} >Connect Wallet</button>
+                            <Button 
+                                onClick={() => open()} 
+                                css={walletBtnCss}
+                            >
+                                Connect Wallet
+                            </Button>
                         </li>
                     ) || (
                         <li class="nav-item">
                             <Dropdown>
                                 {/* <Dropdown.Button color="secondary" flat> */}
-                                <Dropdown.Button flat>
+                                <Dropdown.Button css={walletBtnCss}>
                                     {address}
                                 </Dropdown.Button>
                                 <Dropdown.Menu aria-label="Static Actions" onAction={onMenuAction}>
