@@ -95,7 +95,7 @@ const Layout = ({ children }) => {
                 <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
                     {!isConnected && (
                         <li class="nav-item">
-                            <button type="button" onClick={() => open()} class="btn btn-primary">Connect Wallet</button>
+                            <button type="button" onClick={() => open()} class="btn btn-primary" >Connect Wallet</button>
                         </li>
                     ) || (
                         <li class="nav-item">

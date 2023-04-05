@@ -28,46 +28,6 @@ export default function Home() {
         }
     }, [isConnected, address]);
 
-    // OLD CODE
-    // const app = useRef();
-
-    // function goToSection(i, anim) {
-    //     // console.log("scroll to", window.innerHeight * i)
-    //     gsap.to(window, {
-    //       scrollTo: {y: i*innerHeight, autoKill: false},
-    //       duration: 0.5,
-    //       ease: "power2",
-    //     });
-        
-    //     if(anim) {
-    //       anim.restart();
-    //     }
-    // }
-
-    // useLayoutEffect(() => {
-
-    //   let ctx = gsap.context(() => {
-    //     const panels = gsap.utils.toArray(`.${styles.panel}`)
-    //     console.log("test array: ", panels);
-
-    //       panels.forEach((panel, i) => {
-    //         ScrollTrigger.create({
-    //           trigger: panel,
-    //           onEnter: () => goToSection(i),
-    //           markers: true
-    //         });
-            
-    //         ScrollTrigger.create({
-    //           trigger: panel,
-    //           start: "bottom bottom",
-    //           onEnterBack: () => goToSection(i),
-    //         });
-    //     });
-
-    //   }, app)
-    //   return () => ctx.revert();
-    // }, [])
-    // END OF OLD CODE
 
     // For first page 
     const app = useRef();
@@ -80,12 +40,6 @@ export default function Home() {
     let currentIndex = useRef();
     let wrap = useRef();
     let animating = useRef();
-
-    // For second page
-    let ownBoxes = useRef();
-    let rentBoxes = useRef();
-    let windowWidth = useRef();
-
 
     function gotoSection(index, direction) {
       index = wrap(index); // make sure it's valid
@@ -103,63 +57,13 @@ export default function Home() {
           .set(sections[currentIndex], { autoAlpha: 0 });
       }
       gsap.set(sections[index], { autoAlpha: 1, zIndex: 1 });
+      tl.fromTo([outerWrappers[index], innerWrappers[index]], { 
+        yPercent: i => i ? -100 * dFactor : 100 * dFactor
+      }, { 
+        yPercent: 0 
+      }, 0)
+      .fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0)
 
-      switch (index) {
-        case 0:
-          tl.fromTo([outerWrappers[index], innerWrappers[index]], { 
-            yPercent: i => i ? -100 * dFactor : 100 * dFactor
-          }, { 
-            yPercent: 0 
-          }, 0)
-          .fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0)
-        
-        case 1: 
-          tl.fromTo([outerWrappers[index], innerWrappers[index]], { 
-            yPercent: i => i ? -100 * dFactor : 100 * dFactor
-          }, { 
-            yPercent: 0 
-          }, 0)
-          .fromTo(images[index], { yPercent: 15 * dFactor }, { yPercent: 0 }, 0)
-          // .fromTo(ownBoxes, 
-          //   {
-          //     x: windowWidth/4,
-          //     // start from bottom + footer height
-          //     // y: window.innerHeight/2,
-          //     y: (window.innerHeight/2-50),
-          //     opacity: 0
-          //   },
-            
-          //   {
-          //     opacity: 1,
-          //     duration:0.2,
-          //     y: (i) => {
-          //       return (window.innerHeight/2-50)-ownBoxes[0].clientHeight*i;
-          //     },
-          //     stagger:0.1
-            
-          // })
-          // .fromTo(rentBoxes, 
-          //   {
-          //     x: -windowWidth/4,
-          //     // start from bottom + footer height
-          //     // y: window.innerHeight/2,
-          //     y: (window.innerHeight/2-70),
-          //     opacity: 0
-          //   },
-            
-          //   {
-          //     opacity: 1,
-          //     duration:0.2,
-          //     y: (i) => {
-          //       return (window.innerHeight/2-50)-ownBoxes[0].clientHeight*i;
-          //     },
-          //     stagger:0.1
-            
-          // })
-
-          // console.log(boxes[0])
-          break;
-      }
       currentIndex = index;
     }
     
@@ -170,24 +74,11 @@ export default function Home() {
         headings = gsap.utils.toArray(`.${styles.sectionHeading}`)
         outerWrappers = gsap.utils.toArray(`.${styles.outer}`)
         innerWrappers = gsap.utils.toArray(`.${styles.inner}`)
-        // ownBoxes = gsap.utils.toArray(`.${styles.ownBox}`)
-        // rentBoxes = gsap.utils.toArray(`.${styles.rentBox}`)
-        // windowWidth = window.innerWidth;
-
-        console.log("headings: ", headings)
-        // splitHeadings = headings.map((heading) => 
-        //   {
-        //     console.log(heading);
-        //     return new SplitText(heading, { type: "chars,words,lines"})
-        //   })
-          
         currentIndex = -1;
         wrap = gsap.utils.wrap(0, sections.length);
           
         gsap.set(outerWrappers, { yPercent: 100 });
         gsap.set(innerWrappers, { yPercent: -100 });
-        
-        
         
         Observer.create({
           type: "wheel,touch,pointer",
@@ -206,43 +97,52 @@ export default function Home() {
     }, [])
 
 
+    let arrows = useRef();
+    useLayoutEffect (() => {
+      let ctx = gsap.context(() => {
+        arrows = gsap.utils.toArray(`.${styles.subArrow1}`);
+        gsap.to(`.${styles.subArrow1}`, 
+          {
+          yPercent: 30,
+          repeat: -1,
+          stagger: 0.3,
+          duration: 1.5
+          }
+        )
+        gsap.to(`.${styles.subArrow2}`, 
+          {
+          yPercent: 60,
+          repeat: -1,
+          stagger: 0.3,
+          duration: 1.5
+          }
+        )
+      
+      }, app)
+      
+
+      return () => ctx.revert();
+    }, [])
     
     return (
         <>
-{/*         
-          // OLD CODE
-          <div ref={app} className={styles.panelWrapper}>
-                <section className={`${styles.panel} ${styles.panel0}`}>
-                  <img className={styles.heroImage} src="https://preview.free3d.com/img/2019/12/2206098452058735689/zot1yr97.jpg" alt=""/>
-                  <div className={styles.heroTitleWrapper}>
-                    <p>Pay Less.</p>
-                    <p><span className={styles.ownStyle}>Own</span> More.</p>
-                  </div>
-                </section>
-                <section className={`${styles.panel} ${styles.panel1}`}>2</section>
-                <section className={`${styles.panel} ${styles.panel2}`}>3</section>
-                <section className={`${styles.panel} ${styles.panel3}`}>4</section>
-          </div> */
-          // END OF OLD CODE
-        }
-        {/* <div className={styles.welcomePage}>
-          <p className={styles.welcomeText}>WELCOME</p>
-        </div> */}
         <div className={styles.body} ref={app}> 
           <div className={`${styles.section}`}>
             <div className={styles.outer}>
               <div className={styles.inner}>
                 <div className={`${styles.bg} ${styles.bg1}`}>
-                  {/* <h2 className={`${styles.sectionHeading} ${styles.h2}`}>
-                      More styling to one...
-                  </h2> */}
                   <div className={`${styles.sectionHeading} ${styles.heroTitleWrapper} ${styles.h2}`}>
                     <p>Pay Less.</p>
                     <p><span className={styles.ownStyle}>Own</span> More.</p>
                     <p className={styles.mainSubtext}>
-                      Fractional Ownership provides a way for individuals to own and rent their property at the same time.
+                    LFG offers properties for fractionalized ownership bought
+                    through blockchain networks.
                     </p>
-                    
+                  </div>
+                  <div className={styles.scrollIndicator}>
+                    <div className={styles.arrow}></div>
+                    <div className= {`${styles.arrow} ${styles.subArrow1}`}></div>
+                    <div className= {`${styles.arrow} ${styles.subArrow2}`}></div>
                   </div>
                 </div>
               </div>
@@ -256,51 +156,22 @@ export default function Home() {
                     <div className={`${styles.section2}`}>
                       <p className={`${styles.text2}`}>
                         <span className={styles.bold}>
-                          The simplest way towards home ownership.
+                          The 
+                          <span style={{
+                            padding: 9,
+                            color: "#0582CA"
+                          }}>Simplest</span>
+                           Way Towards Home Ownership. 
                         </span>
-                        <button> Browse </button>
+                        <p className={styles.about}>
+                          Get started by connecting your wallet.
+                        </p>
                       </p>
                     </div>
-                  {/* <div className={`${styles.box} ${styles.ownBox}`}></div>
-                  <div className={`${styles.box} ${styles.ownBox}`}></div>
-                  <div className={`${styles.box} ${styles.ownBox}`}></div>
-                  <div className={`${styles.box} ${styles.ownBox}`}></div>
-                  <div className={`${styles.box} ${styles.rentBox}`}></div>
-                  <div className={`${styles.box} ${styles.rentBox}`}></div>
-                  <div className={`${styles.box} ${styles.rentBox}`}></div>
-                  <div className={`${styles.box} ${styles.rentBox}`}></div> */}
                 </div>
               </div>
             </div>
           </div>
-{/*           
-          <section className={`${styles.third} ${styles.section}`}>
-            <div className={styles.outer}>
-              <div className={styles.inner}>
-                <div className={`${styles.bg} ${styles.bg3}`}>
-                  <h2 className={`${styles.sectionHeading} ${styles.h2}`}>Animated with GSAP</h2>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section className={`${styles.fourth} ${styles.section}`}>
-            <div className={styles.outer}>
-              <div className={styles.inner}>
-                <div className={`${styles.bg} ${styles.bg4}`}>
-                  <h2 className={`${styles.sectionHeading} ${styles.h2}`}>Animated with GSAP</h2>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section className={`${styles.fifth} ${styles.section}`}>
-            <div className={styles.outer}>
-              <div className={styles.inner}>
-                <div className={`${styles.bg} ${styles.bg5}`}>
-                  <h2 className={`${styles.sectionHeading} ${styles.h2}`}>Animated with GSAP</h2>
-                </div>
-              </div>
-            </div>
-          </section> */}
         </div>
         </>
   )
